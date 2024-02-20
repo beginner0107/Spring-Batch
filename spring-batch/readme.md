@@ -39,3 +39,53 @@ public class SpringBatchApplication {
      - JPA 관련 객체를 생성하는 설정 클래스
    
   - **사용자 정의 BatchConfigurer 인터페이스를 구현하여 사용할 수 있음**
+
+
+## Hello Spring 시작하기
+```java
+@RequiredArgsConstructor
+@Configuration
+public class HelloJobConfiguration {
+
+  private final JobBuilderFactory jobBuilderFactory; // Job을 생성하는 빌더 팩토리
+  private final StepBuilderFactory stepBuilderFactory; // Step을 생성하는 빌더 팩토리
+
+  @Bean
+  public Job helloJob() {
+    return jobBuilderFactory.get("helloJob") // Job 생성
+        .start(helloStep1())
+        .build();
+  }
+
+  @Bean
+  public Step helloStep1() {
+    return stepBuilderFactory.get("helloStep1") // Step 생성
+        .tasklet(new Tasklet() { // tasklet
+          @Override
+          public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
+            return RepeatStatus.FINISHED;
+          }
+        }).build()
+        ;
+  }
+```
+
+1. ```@Configuration 선언```
+- 하나의 배치 Job을 정의하고 빈 설정
+
+2. ```JobBuilderFactory```
+- Job을 생성하는 빌더 팩토리
+
+3. ```StepBuilderFactory```
+- Step을 생성하는 빌더 팩토리
+
+4. ```Job```
+- helloJob 이름으로 Job 생성
+
+5. ```Step```
+- helloStep 이름으로 Step 생성
+
+6. ```tasklet```
+- Step 안에서 단일 테스크로 수행되는 로직 구현
+
+7. **Job 구동 -> Step을 실행 -> Tasklet을 실행**
