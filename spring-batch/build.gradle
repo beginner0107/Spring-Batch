@@ -26,6 +26,9 @@ dependencies {
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// mysql
+	runtimeOnly  'mysql:mysql-connector-java'
 }
 
 tasks.named('bootBuildImage') {
