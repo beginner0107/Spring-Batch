@@ -89,3 +89,26 @@ public class HelloJobConfiguration {
 - Step 안에서 단일 테스크로 수행되는 로직 구현
 
 7. **Job 구동 -> Step을 실행 -> Tasklet을 실행**
+
+
+
+## yml 설정
+1. 테스트 혹은 개발 환경 always로 두고 사용.
+- 자동으로 배치 테이블을 생성한다.
+```yml
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/springbatch?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.jdbc.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
+```
+2. 운영에서는 never
+- 자동으로 배치 테이블 생성하는 스크립트 실행하지 않겠다는 것.
