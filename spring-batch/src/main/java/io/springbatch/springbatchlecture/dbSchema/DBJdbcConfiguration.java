@@ -1,9 +1,7 @@
-package io.springbatch.springbatchlecture;
+package io.springbatch.springbatchlecture.dbSchema;
 
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -14,13 +12,14 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//@Configuration
 @RequiredArgsConstructor
-@Configuration
-public class JobParameterConfiguration {
+public class DBJdbcConfiguration {
+
   private final JobBuilderFactory jobBuilderFactory;
   private final StepBuilderFactory stepBuilderFactory;
 
-  @Bean
+  //@Bean
   public Job job() {
     return jobBuilderFactory.get("job")
         .start(step1())
@@ -28,36 +27,21 @@ public class JobParameterConfiguration {
         .build();
   }
 
-  @Bean
-  public Step step1() {
+  private Step step1() {
     return stepBuilderFactory.get("step1")
         .tasklet(new Tasklet() {
           @Override
           public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
               throws Exception {
-            JobParameters jobParameters = contribution.getStepExecution().getJobExecution()
-                .getJobParameters();
-            jobParameters.getString("name");
-            jobParameters.getLong("seq");
-            jobParameters.getDate("date");
-            jobParameters.getDouble("age");
-
-            // 시점의 값만 확인
-            Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
-            jobParameters1.get("name");
-            jobParameters1.get("seq");
-            jobParameters1.get("date");
-            jobParameters1.get("age");
-
             System.out.println("step1 was executed");
             return RepeatStatus.FINISHED;
           }
-        }).build()
+        })
+        .build()
         ;
   }
 
-  @Bean
-  public Step step2() {
+  private Step step2() {
     return stepBuilderFactory.get("step2")
         .tasklet(new Tasklet() {
           @Override
@@ -66,7 +50,8 @@ public class JobParameterConfiguration {
             System.out.println("step2 was executed");
             return RepeatStatus.FINISHED;
           }
-        }).build()
+        })
+        .build()
         ;
   }
 }

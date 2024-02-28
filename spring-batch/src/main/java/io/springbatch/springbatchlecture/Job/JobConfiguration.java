@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture;
+package io.springbatch.springbatchlecture.Job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -12,9 +12,9 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @RequiredArgsConstructor
-public class DBJdbcConfiguration {
+//@Configuration
+public class JobConfiguration {
 
   private final JobBuilderFactory jobBuilderFactory;
   private final StepBuilderFactory stepBuilderFactory;
@@ -27,21 +27,23 @@ public class DBJdbcConfiguration {
         .build();
   }
 
-  private Step step1() {
+  //@Bean
+  public Step step1() {
     return stepBuilderFactory.get("step1")
         .tasklet(new Tasklet() {
           @Override
           public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
               throws Exception {
+
             System.out.println("step1 was executed");
             return RepeatStatus.FINISHED;
           }
-        })
-        .build()
+        }).build()
         ;
   }
 
-  private Step step2() {
+  //@Bean
+  public Step step2() {
     return stepBuilderFactory.get("step2")
         .tasklet(new Tasklet() {
           @Override
@@ -50,8 +52,7 @@ public class DBJdbcConfiguration {
             System.out.println("step2 was executed");
             return RepeatStatus.FINISHED;
           }
-        })
-        .build()
+        }).build()
         ;
   }
 }
