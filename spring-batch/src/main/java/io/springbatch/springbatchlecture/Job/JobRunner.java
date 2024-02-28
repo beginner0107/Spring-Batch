@@ -13,15 +13,15 @@ import org.springframework.stereotype.Component;
 //@RequiredArgsConstructor
 public class JobRunner implements ApplicationRunner {
 
-  //private final JobLauncher jobLauncher;
-  //private final Job job;
+    //private final JobLauncher jobLauncher;
+    //private final Job job;
 
-  @Override
-  public void run(ApplicationArguments args) throws Exception {
-    JobParameters jobParameters = new JobParametersBuilder().addString("name",
-            "user2")
-        .toJobParameters();
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        JobParameters jobParameters = new JobParametersBuilder().addString("name",
+                "user2")
+            .toJobParameters();
 
-    //jobLauncher.run(job, jobParameters);
-  }
+        //jobLauncher.run(job, jobParameters);
+    }
 }

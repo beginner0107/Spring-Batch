@@ -14,18 +14,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class JobParameterTest implements ApplicationRunner {
 
-  private final JobLauncher jobLauncher;
-  private final Job job;
+    private final JobLauncher jobLauncher;
+    private final Job job;
 
-  @Override
-  public void run(ApplicationArguments args) throws Exception {
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
 
-    JobParameters jobParameters = new JobParametersBuilder()
-        .addString("name", "user1")
-        .addLong("seq", 2L)
-        .addDate("date", new Date())
-        .addDouble("age", 16.5)
-        .toJobParameters();
-    jobLauncher.run(job, jobParameters);
-  }
+        JobParameters jobParameters = new JobParametersBuilder()
+            .addString("name", "user1")
+            .addLong("seq", 2L)
+            .addDate("date", new Date())
+            .addDouble("age", 16.5)
+            .toJobParameters();
+        jobLauncher.run(job, jobParameters);
+    }
 }
