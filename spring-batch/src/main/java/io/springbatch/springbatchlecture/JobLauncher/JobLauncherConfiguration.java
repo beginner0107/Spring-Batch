@@ -35,7 +35,7 @@ public class JobLauncherConfiguration {
                 public RepeatStatus execute(StepContribution contribution,
                     ChunkContext chunkContext)
                     throws Exception {
-
+                    Thread.sleep(3000);
                     System.out.println("step1 was executed");
                     return RepeatStatus.FINISHED;
                 }
